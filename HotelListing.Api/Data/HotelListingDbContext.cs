@@ -2,7 +2,7 @@
 
 namespace HotelListing.Api.Data
 {
-    public class HotelListingDbContext:DbContext
+    public class HotelListingDbContext : DbContext
     {
         public HotelListingDbContext(DbContextOptions options) : base(options)
         {
@@ -10,8 +10,8 @@ namespace HotelListing.Api.Data
 
         }
 
-        public DbSet<Hotel>Hotels { get; set; }
-        public DbSet<Country>Countries { get; set; }
+        public DbSet<Hotel> Hotels { get; set; }
+        public DbSet<Country> Countries { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -39,7 +39,7 @@ namespace HotelListing.Api.Data
                 );
 
             modelBuilder.Entity<Hotel>().HasData(
-                
+
                 new Hotel
                 {
                     HotelId = 1,

@@ -1,6 +1,7 @@
 using Serilog;
 using HotelListing.Api.Data;
 using Microsoft.EntityFrameworkCore;
+using HotelListing.Api.Configurations;
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("HotelListingGbConnectionString");
@@ -24,7 +25,11 @@ builder.Services.AddCors(options =>
 
 });
 
-builder.Host.UseSerilog((ctx, lc) => lc.WriteTo.Console().ReadFrom.Configuration(ctx.Configuration));
+builder.Host.UseSerilog((ctx, lc) => lc.WriteTo.Console().ReadFrom.Configuration
+(ctx.Configuration));
+
+builder.Services.AddAutoMapper(typeof(MapperConfig));
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
