@@ -16,7 +16,7 @@ namespace HotelListing.Api.Repository
         }
         public async Task<T> AddAsync(T entity)
         {
-            throw new NotImplementedException();
+           
             await _context.AddAsync(entity);
             await _context.SaveChangesAsync();
             return entity;
