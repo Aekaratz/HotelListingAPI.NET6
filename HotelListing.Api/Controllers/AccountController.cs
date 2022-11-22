@@ -15,7 +15,7 @@ namespace HotelListing.Api.Controllers
         {
             this._authManager = authManager;
         }
-        // api/Account/register
+        // POST: Api/Account/Register
         [HttpPost]
         [Route("register")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -35,6 +35,46 @@ namespace HotelListing.Api.Controllers
 
             }
             return Ok(errors);
+        }
+
+        // POST: Api/Account/Login
+        [HttpPost]
+        [Route("login")]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<ActionResult> Login([FromBody] LoginDto loginDto)
+        {
+            var authRespone = await _authManager.Login(loginDto);
+
+            if (authRespone==null)
+            {
+                
+                return Unauthorized();
+
+            }
+            return Ok(authRespone);
+        }
+
+
+
+        // POST: Api/Account/RefreshToken
+        [HttpPost]
+        [Route("refreshtoken")]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<ActionResult> RefreshToken([FromBody] AuthResponeDto request)
+        {
+            var authRespone = await _authManager.VerifyRefreshToken(request);
+
+            if (authRespone == null)
+            {
+
+                return Unauthorized();
+
+            }
+            return Ok(authRespone);
         }
     }
 }
